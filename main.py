@@ -1,4 +1,8 @@
 from math import floor
+from UI import ui
+from UI import *
+
+gui = ui()
 
 # Grab user submitted data
 def get_user_data():
@@ -19,16 +23,16 @@ def calculate_quantity(money, price):
         # tell the user to input a number
         result.config(text="Das geen getal")
 
+
 # Show the result to the user
 def show_result(quantity):
+    string = ""
     if quantity > 1 or quantity == 0:
+        set_result()
         result.configure(text=str(quantity) + " frikandelbroodjes!")
     elif quantity < 0:
         result.config(text="Lol poor")
     else:
         result.configure(text=str(quantity) + " frikandelbroodje!")
-
-
-
 
 root.mainloop()
