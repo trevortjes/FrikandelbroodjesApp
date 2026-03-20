@@ -8,7 +8,7 @@ class CreateUI:
 
                 self.root = tk.Tk()
                 self.root.title('Frikandelbroodjes App')
-                self.root.resizable(0, 0)
+                self.root.resizable(False, False)
 
                 # Window size and position defaults
                 window_width = 300
@@ -16,7 +16,7 @@ class CreateUI:
 
                 color = "dark orange"  # color for the backdrop
 
-                font = "Arial"  # default font, catch if font does not exist??
+                font = "Arial"  # default font, catch ikf font does not exist??
                 fontsize_s = 10
                 fontsize_l = 16
 
@@ -69,6 +69,7 @@ class CreateUI:
 
                 money = self.money_entry.get()  # Store value from money entry
                 price = self.price_entry.get()  # Store value from price entry
+                print(type(money))
                 self.calculate_quantity(money, price)
 
 
@@ -76,7 +77,8 @@ class CreateUI:
         def calculate_quantity(self, money, price):
 
                 try:
-                        quantity = floor(float(money) / float(price))  # hoeveel broodjes gekocht kunnen worden
+                        # Accept both . and , as floating point delimiter
+                        quantity = floor(float(str(money).replace(",", ".")) / float(str(price).replace(",", ".")))
                         self.show_result(quantity)
                         return quantity
 
@@ -87,7 +89,7 @@ class CreateUI:
 
 
         # Show the result to the user
-        def show_result(self, quantity) -> None:
+        def show_result(self, quantity):
 
             if quantity > 1 or quantity == 0:
                 self.result.configure(text=str(quantity) + " frikandelbroodjes!")

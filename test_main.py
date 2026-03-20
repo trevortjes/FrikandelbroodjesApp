@@ -11,6 +11,7 @@ def draw_ui():
     (1, 2, 0),
     (2, 1, 2),
     (2,-1, -2),
+    ("1,5" , "0,5", 3), # can be , or . for delimiter
     ('h', 3, "wrong input")
 ])
 
