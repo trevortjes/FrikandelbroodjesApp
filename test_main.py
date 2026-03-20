@@ -1,10 +1,30 @@
-from main import calculate_quantity
+from UserInterface import CreateUI
 import pytest
 
-def test_calculate_quantity():
+@pytest.fixture
+def draw_ui():
+    return CreateUI()
 
-    GOOD_VALUES = [1,1.26,999999]
-    BAD_VALUES = [-1, 'abcdefghik', 'h', None]
+# Test the calculation for the amount of frikandelbroodjes with different types of inputs
+@pytest.mark.parametrize("money, price, expected",[
+    (1, 1, 1),
+    (1, 2, 0),
+    (2, 1, 2),
+    (2,-1, -2),
+    ('h', 3, "wrong input")
+])
 
-    for value in GOOD_VALUES:
-        calculate_quantity(value,value)
+def test_inputs(draw_ui, money, price, expected):
+    assert draw_ui.calculate_quantity(money, price) == expected
+
+
+# Test the textual logic for "Frikandelbroodje(s)"
+@pytest.mark.parametrize("value, expected",[
+    (1, "broodje"),
+    (2, "broodjes"),
+    (0, "broodjes"),
+    (-1, "invalid"),
+])
+
+def test_results(draw_ui, value, expected):
+    assert draw_ui.show_result(value) == expected

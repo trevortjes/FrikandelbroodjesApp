@@ -73,16 +73,17 @@ class CreateUI:
 
 
         # Calculation of how many frikandelbroodjes can be bought
-        def calculate_quantity(self, money, price) -> None:
+        def calculate_quantity(self, money, price):
 
                 try:
                         quantity = floor(float(money) / float(price))  # hoeveel broodjes gekocht kunnen worden
-                        print(quantity)
                         self.show_result(quantity)
+                        return quantity
 
                 except:
                         # tell the user to input a number
                         self.result.config(text="Das geen getal")
+                        return "wrong input"
 
 
         # Show the result to the user
@@ -90,7 +91,10 @@ class CreateUI:
 
             if quantity > 1 or quantity == 0:
                 self.result.configure(text=str(quantity) + " frikandelbroodjes!")
+                return "broodjes"
             elif quantity < 0:
                 self.result.config(text="Lol poor")
+                return "invalid"
             else:
                 self.result.configure(text=str(quantity) + " frikandelbroodje!")
+                return "broodje"
