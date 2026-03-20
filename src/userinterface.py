@@ -49,12 +49,12 @@ class CreateUI:
                 self.money_entry = tk.Entry(self.root)
                 self.money_entry.focus()
                 self.money_entry.pack()
-                self.money_entry.bind("<Return>", lambda event: self.get_user_data())
+                self.money_entry.bind("<Return>", lambda event: self.process_input())
 
                 tk.Label(self.root, text="Prijs per stuk (€)", bg=color, font=(font, fontsize_s, "bold")).pack(pady=5)
                 self.price_entry = tk.Entry(self.root)
                 self.price_entry.pack()
-                self.price_entry.bind("<Return>", lambda event: self.get_user_data())
+                self.price_entry.bind("<Return>", lambda event: self.process_input())
 
                 self.button = tk.Button(self.root, text="Bereken", command=self.process_input, bg="dark orange", activebackground="yellow",
                                    font=(font, fontsize_s, "bold"))
