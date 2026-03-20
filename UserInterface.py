@@ -1,6 +1,6 @@
 import tkinter as tk
 from PIL import Image, ImageTk
-from math import floor
+from logic import calculate_quantity, format_result
 
 class CreateUI:
 
@@ -8,7 +8,7 @@ class CreateUI:
 
                 self.root = tk.Tk()
                 self.root.title('Frikandelbroodjes App')
-                self.root.resizable(0, 0)
+                self.root.resizable(False, False)
 
                 # Window size and position defaults
                 window_width = 300
@@ -16,7 +16,7 @@ class CreateUI:
 
                 color = "dark orange"  # color for the backdrop
 
-                font = "Arial"  # default font, catch if font does not exist??
+                font = "Arial"  # default font, catch ikf font does not exist??
                 fontsize_s = 10
                 fontsize_l = 16
 
@@ -56,7 +56,7 @@ class CreateUI:
                 self.price_entry.pack()
                 self.price_entry.bind("<Return>", lambda event: self.get_user_data())
 
-                self.button = tk.Button(self.root, text="Bereken", command=self.get_user_data, bg="dark orange", activebackground="yellow",
+                self.button = tk.Button(self.root, text="Bereken", command=self.process_input, bg="dark orange", activebackground="yellow",
                                    font=(font, fontsize_s, "bold"))
                 self.button.pack(pady=10)
 
@@ -64,37 +64,13 @@ class CreateUI:
                 self.result.pack()
 
 
-        # Grab user submitted data
-        def get_user_data(self) -> None:
+        def process_input(self):
 
-                money = self.money_entry.get()  # Store value from money entry
-                price = self.price_entry.get()  # Store value from price entry
-                self.calculate_quantity(money, price)
+                money = self.money_entry.get()
+                price = self.price_entry.get()
 
+                quantity = calculate_quantity(money, price)
+                text = format_result(quantity)
 
-        # Calculation of how many frikandelbroodjes can be bought
-        def calculate_quantity(self, money, price):
+                self.result.config(text=text)
 
-                try:
-                        quantity = floor(float(money) / float(price))  # hoeveel broodjes gekocht kunnen worden
-                        self.show_result(quantity)
-                        return quantity
-
-                except:
-                        # tell the user to input a number
-                        self.result.config(text="Das geen getal")
-                        return "wrong input"
-
-
-        # Show the result to the user
-        def show_result(self, quantity) -> None:
-
-            if quantity > 1 or quantity == 0:
-                self.result.configure(text=str(quantity) + " frikandelbroodjes!")
-                return "broodjes"
-            elif quantity < 0:
-                self.result.config(text="Lol poor")
-                return "invalid"
-            else:
-                self.result.configure(text=str(quantity) + " frikandelbroodje!")
-                return "broodje"
