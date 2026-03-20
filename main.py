@@ -1,4 +1,4 @@
-from userinterface import CreateUI
+from src.userinterface import CreateUI
 
 ui = CreateUI()
 ui.root.mainloop()

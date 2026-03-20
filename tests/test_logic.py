@@ -1,5 +1,5 @@
-from userinterface import CreateUI
-from logic import calculate_quantity, format_result
+from src.userinterface import CreateUI
+from src.logic import calculate_quantity, format_result
 import pytest
 
 # niet nodig? logic onafhankelijk van UI
@@ -25,7 +25,7 @@ def test_inputs(money, price, expected):
     ("wrong input", "Das geen getal"),
     (2, f"{2} frikandelbroodjes!"),
     (0, f"{0} frikandelbroodjes!"),
-    (1, f"{1} frikandelbroodje!")
+    (1, f"{1} frikandelbroodje!"),
     (-1, "Lol poor"),
 ])
 

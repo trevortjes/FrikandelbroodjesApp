@@ -1,6 +1,6 @@
 import tkinter as tk
 from PIL import Image, ImageTk
-from logic import calculate_quantity, format_result
+from src.logic import calculate_quantity, format_result
 
 class CreateUI:
 
