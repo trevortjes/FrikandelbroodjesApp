@@ -1,6 +1,8 @@
 from UserInterface import CreateUI
+from logic import calculate_quantity, format_result
 import pytest
 
+# niet nodig? logic onafhankelijk van UI
 @pytest.fixture
 def draw_ui():
     return CreateUI()
@@ -15,17 +17,17 @@ def draw_ui():
     ('h', 3, "wrong input")
 ])
 
-def test_inputs(draw_ui, money, price, expected):
-    assert draw_ui.calculate_quantity(money, price) == expected
-
+def test_inputs(money, price, expected):
+    assert calculate_quantity(money, price) == expected
 
 # Test the textual logic for "Frikandelbroodje(s)"
 @pytest.mark.parametrize("value, expected",[
-    (1, "broodje"),
-    (2, "broodjes"),
-    (0, "broodjes"),
-    (-1, "invalid"),
+    ("wrong input", "Das geen getal"),
+    (2, f"{2} frikandelbroodjes!"),
+    (0, f"{0} frikandelbroodjes!"),
+    (1, f"{1} frikandelbroodje!")
+    (-1, "Lol poor"),
 ])
 
-def test_results(draw_ui, value, expected):
-    assert draw_ui.show_result(value) == expected
+def test_results(value, expected):
+    assert format_result(value) == expected
