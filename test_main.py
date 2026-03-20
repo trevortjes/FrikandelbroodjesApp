@@ -1,4 +1,4 @@
-from UserInterface import CreateUI
+from userinterface import CreateUI
 from logic import calculate_quantity, format_result
 import pytest
 
