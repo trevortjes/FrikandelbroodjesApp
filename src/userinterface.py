@@ -1,6 +1,7 @@
 import tkinter as tk
 from PIL import Image, ImageTk
 from src.logic import calculate_quantity, format_result
+from src.scrape import fetch_jumbo
 
 class CreateUI:
 
@@ -12,7 +13,7 @@ class CreateUI:
 
                 # Window size and position defaults
                 window_width = 300
-                window_height = 200
+                window_height = 240
 
                 color = "dark orange"  # color for the backdrop
 
@@ -56,13 +57,14 @@ class CreateUI:
                 self.price_entry.pack()
                 self.price_entry.bind("<Return>", lambda event: self.process_input())
 
-                self.button = tk.Button(self.root, text="Bereken", command=self.process_input, bg="dark orange", activebackground="yellow",
-                                   font=(font, fontsize_s, "bold"))
+                self.button = tk.Button(self.root, text="Bereken", command=self.process_input, bg="dark orange", activebackground="yellow", font=(font, fontsize_s, "bold"))
                 self.button.pack(pady=10)
 
                 self.result = tk.Label(self.root, text="____", font=(font, fontsize_l), bg="dark orange")
                 self.result.pack()
 
+                self.button = tk.Button(self.root, text="Jumbo prijs", command=self.fetch_price, bg="dark orange", activebackground="yellow", font=(font, fontsize_s, "bold"))
+                self.button.pack(pady=10)
 
         def process_input(self):
 
@@ -73,4 +75,8 @@ class CreateUI:
                 text = format_result(quantity)
 
                 self.result.config(text=text)
+
+        def fetch_price(self):
+                self.price_entry.delete(0, 'end')
+                self.price_entry.insert(0,str(fetch_jumbo()))
 
